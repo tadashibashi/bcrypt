@@ -9,4 +9,4 @@ target_include_directories(bcrypt PRIVATE src/)
 target_include_directories(bcrypt PUBLIC include/)
 
 # add_executable(test test/main.cpp)
-target_link_libraries(test PRIVATE bcrypt)
+# target_link_libraries(test PRIVATE bcrypt)
