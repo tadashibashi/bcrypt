@@ -2,12 +2,15 @@
 #define BCRYPT_H
 
 #include <string>
+#include <string_view>
 
 namespace bcrypt {
 
-    std::string generateHash(const std::string & password , unsigned rounds = 10 );
+    [[nodiscard]]
+    std::string generateHash(std::string_view password , unsigned rounds = 10 );
 
-    bool validatePassword(const std::string & password, const std::string & hash);
+    [[nodiscard]]
+    bool validatePassword(std::string_view password, std::string_view hash);
 
 }
 

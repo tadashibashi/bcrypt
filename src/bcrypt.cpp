@@ -318,7 +318,7 @@ encode_base64(u_int8_t *buffer, u_int8_t *data, u_int16_t len)
 	*bp = '\0';
 }
 
-std::string bcrypt::generateHash(const std::string &password, unsigned int rounds) {
+std::string bcrypt::generateHash(std::string_view password, unsigned int rounds) {
     char salt[_SALT_LEN];
 
     unsigned char seed[17]{};
@@ -329,14 +329,14 @@ std::string bcrypt::generateHash(const std::string &password, unsigned int round
     bcrypt_gensalt('b', rounds, seed, salt);
 
     std::string hash(61, '\0');
-    node_bcrypt(password.c_str(), password.size(), salt, &hash[0]);
+    node_bcrypt(password.data(), password.size(), salt, &hash[0]);
     hash.resize(60);
     return hash;
 }
 
-bool bcrypt::validatePassword(const std::string &password, const std::string &hash) {
+bool bcrypt::validatePassword(std::string_view password, std::string_view hash) {
     std::string got(61, '\0');
-    node_bcrypt(password.c_str(), password.size(), hash.c_str(), &got[0]);
+    node_bcrypt(password.data(), password.size(), hash.data(), &got[0]);
     got.resize(60);
     return hash == got;
 }
